@@ -96,6 +96,7 @@ This is a bad practice because it doesn’t create a variable in the current sco
 
 @Operator Precedence
 The order in which operators are evaluated in expressions (refer to JavaScript operator precedence tables for more).
+Refer this link for exact details --> https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_precedence
 
 @Multiple Variable Declarations and Assignments
 We can declare multiple variables at once using `let` or `const`:
