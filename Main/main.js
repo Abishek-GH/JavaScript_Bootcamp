@@ -112,6 +112,38 @@ console.log(x, y);  // Output: 10, 10
    console.log(a, b);  // Output: 5, 10
 
 -> Always ensure that all variables are assigned valid values when using `const`.
+
+@Template String is an ES6 Feature
+
+@ If Else is called as If Else Control Structure and it can work without a else statement as it is optional
+
+@Type Conversion and Type Coercion 
+Type Conversion -> When the user manually convert the type from one type to another
+Type Coercion -> When JS automatically converts the type from one type to another behind the scenes
+NaN means Invalid Number. It is still a number and will give a type of Number. It is generated when the code fails to produce a new number from a mathematical operation.
+
+'-' Operator triggers a String to Number Type Coercion
+'*' Operator triggers a String to Number Type Coercion
+'/' Operator triggers a String to Number Type Coercion
+'+' Operator triggers a Number to String Type Coercion
+
+
+There are 5 Falsy Values in JavaScript
+0, '', undefined, null, NaN
+
+'===' is called as Strict Equality Operator
+'==' is called as Loose Equialty Operator
+
+Expressions produces values and Statement performs some set of actions
+
+
+@strict mode in javascript can be enable by writing 'use strict' at the top line of the code.
+This will forbid few things that JavaScript would have allowed to fail silently.
+This will reserve soem words by JavaScript that might be used in later releases of JavaScript.
+
+@Function -> It is a block of code which can be reused again and again
+Paramter is the Placeholder in the function
+Argument is the actual value which is been passed into the function.
 */
 
 /*
@@ -124,6 +156,7 @@ Errors and Basic Identification:
 /*
 Tips & Tricks:
 -> Ctrl + / -> Single line comment (from any part of the current line).
+-> Windows + . -> Emojis in Windows
 */
 
 

@@ -24,4 +24,33 @@ const birthYear = 1991;
 let x, y;
 x = y = 25 - 10 - 5;
 console.log(x, y);
+
+
+const year = '1991';
+const year2 = Number(year);
+console.log(typeof year);
+console.log(typeof year2);
+
+
+const myName = "abishek";
+const myName2 = Number(myName);
+console.log(typeof myName);
+console.log(typeof myName2);
+
+const day = "wednesday"
+switch (day) {
+    case 'monday':
+        console.log("Monday");
+        break;
+    case 'tuesday':
+        console.log("Tuesday");
+        break;
+    case 'wednesday':
+    default:
+        console.log('NA');
+}
+
+const age = 29;
+age >= 30 ? console.log('Hello') : console.log("Hey");
+
 */
