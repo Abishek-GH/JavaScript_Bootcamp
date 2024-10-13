@@ -144,6 +144,11 @@ This will reserve soem words by JavaScript that might be used in later releases 
 @Function -> It is a block of code which can be reused again and again
 Paramter is the Placeholder in the function
 Argument is the actual value which is been passed into the function.
+
+Generally const variable cannot be changed bu when we define an array with const keyword. We can change it As it is not a Primitive Data Type and JS Stores Data in Memory.
+
+
+@console.table -> Returns the object in a converted table
 */
 
 /*
@@ -157,6 +162,15 @@ Errors and Basic Identification:
 Tips & Tricks:
 -> Ctrl + / -> Single line comment (from any part of the current line).
 -> Windows + . -> Emojis in Windows
+
+@Prettier Setup
+-> Install Prettier Extension
+-> Settings -> Default Formatter -> Prettier
+-> Settings -> Format on Save -> Check
+-> Create .prettierrc file and add configurations.
+
+
+
 */
 
 

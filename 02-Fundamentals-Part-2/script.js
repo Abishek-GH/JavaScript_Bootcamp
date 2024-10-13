@@ -1,5 +1,5 @@
 'use strict';
-
+/*
 function functionName(paramter) {
     console.timeLog("Hey");
 }
@@ -18,3 +18,6 @@ console.log(hello(Paramter));
 const hi = (paramter1, paramter2) => {
     return 'Hii';
 }
+    */
+
+const years = new Array(1991, 2001, 2003);
