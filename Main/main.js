@@ -149,6 +149,11 @@ Generally const variable cannot be changed bu when we define an array with const
 
 
 @console.table -> Returns the object in a converted table
+
+@CSS Style Manipulation via JavaScript
+-> To manipulate the css style always use camel case.
+-> The value of the desried property should always be a string.
+-> querySelector selects the first element if the given selector matches with multiple elements
 */
 
 /*
