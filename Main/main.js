@@ -198,176 +198,594 @@ In regular functions (declarations/expressions), we can pass more arguments than
 Arrow functions do not have an arguments object.
 
 
+@Primitive Data Types and Reference Types
 
-**@Primitive Data Types and Reference Types**  
+- In JavaScript, data types are classified into primitive types and reference types. 
 
-In JavaScript, data types are classified into **primitive types** and **reference types**. 
+@Primitive Data Types
+- Definition: Primitive data types are the basic building blocks of data in JavaScript. They hold a single value and are stored directly in the call stack.
 
-### **Primitive Data Types**
-- **Definition**: Primitive data types are the basic building blocks of data in JavaScript. They hold a single value and are stored directly in the call stack.  
-
-- **Types of Primitive Data**:
-  1. **String**: A sequence of characters.  
-     - **Example**:  
-       ```javascript
-       let name = "Alice"; // A string primitive
-       ```
+- Types of Primitive Data:
+  1. String: A sequence of characters.  
+     -> Example:  
+     `let name = "Alice";` // A string primitive
   
-  2. **Number**: Represents both integer and floating-point numbers.  
-     - **Example**:  
-       ```javascript
-       let age = 30; // A number primitive
-       ```
+  2. Number: Represents both integer and floating-point numbers.  
+     -> Example:  
+     `let age = 30;` // A number primitive
   
-  3. **Boolean**: Represents a logical entity with two values: `true` or `false`.  
-     - **Example**:  
-       ```javascript
-       let isStudent = true; // A boolean primitive
-       ```
+  3. Boolean: Represents a logical entity with two values: true or false.  
+     -> Example:  
+     `let isStudent = true;` // A boolean primitive
+  
+  4. Null: Represents the intentional absence of any value.  
+     -> Example:  
+     `let selectedOption = null;` // A null primitive
+  
+  5. Undefined: Indicates a variable that has been declared but not assigned a value.  
+     -> Example:  
+     `let score;` // score is undefined
+  
+  6. BigInt: Represents whole numbers larger than 2^53 - 1.  
+     -> Example:  
+     `let bigNumber = BigInt(1234567890123456789012345678901234567890);` // A BigInt
+  
+  7. Symbol: Represents a unique and immutable value, often used as object property keys.  
+     -> Example:  
+     `const uniqueID = Symbol("id");` // A symbol primitive
 
-  4. **Null**: Represents the intentional absence of any value.  
-     - **Example**:  
-       ```javascript
-       let selectedOption = null; // A null primitive
-       ```
+@Reference Types
+- Definition: Reference types are more complex data structures that can store collections of values. They are stored in the heap, and variables hold a reference to the memory location where the object is stored.
 
-  5. **Undefined**: Indicates a variable that has been declared but not assigned a value.  
-     - **Example**:  
-       ```javascript
-       let score; // score is undefined
-       ```
+- Types of Reference Data:
+  1. Object Literals: Key-value pairs representing real-world entities.  
+     -> Example:  
+     `let person = { name: "Bob", age: 25 };` // An object literal
+  
+  2. Arrays: Ordered collections of values, which can be of any type.  
+     -> Example:  
+     `let fruits = ["apple", "banana", "cherry"];` // An array
+  
+  3. Functions: First-class objects that can be assigned to variables, passed as arguments, and returned from other functions.  
+     -> Example:  
+     `function greet() { return "Hello!"; }` // A function
 
-  6. **BigInt**: Represents whole numbers larger than `2^53 - 1`.  
-     - **Example**:  
-       ```javascript
-       let bigNumber = BigInt(1234567890123456789012345678901234567890); // A BigInt
-       ```
 
-  7. **Symbol**: Represents a unique and immutable value, often used as object property keys.  
-     - **Example**:  
-       ```javascript
-       const uniqueID = Symbol("id"); // A symbol primitive
-       ```
+@Variable Storage in JavaScript
+- When you declare a variable, JavaScript allocates memory for it behind the scenes.
 
-### **Reference Types**
-- **Definition**: Reference types are more complex data structures that can store collections of values. They are stored in the heap, and variables hold a reference to the memory location where the object is stored. 
+- Example:  
+  `let age = 30;`
+  
+  -> Behind the Scenes:  
+    - In the Call Stack:  
+      - Identifier: `age`  
+      - Address: `0001` (hypothetical address)  
+      - Value: `30`
+  
+  In this case, `age` is an identifier pointing to a memory address where the value `30` is stored. When you reference `age`, JavaScript retrieves the value from that address.
 
-- **Types of Reference Data**:
-  1. **Object Literals**: Key-value pairs representing real-world entities.  
-     - **Example**:  
-       ```javascript
-       let person = { name: "Bob", age: 25 }; // An object literal
-       ```
-
-  2. **Arrays**: Ordered collections of values, which can be of any type.  
-     - **Example**:  
-       ```javascript
-       let fruits = ["apple", "banana", "cherry"]; // An array
-       ```
-
-  3. **Functions**: First-class objects that can be assigned to variables, passed as arguments, and returned from other functions.  
-     - **Example**:  
-       ```javascript
-       function greet() { return "Hello!"; } // A function
-       ```
-
----
-
-**@Variable Storage in JavaScript**
-
-When you declare a variable, JavaScript allocates memory for it behind the scenes.
-
-- **Example**: 
-  ```javascript
-  let age = 30;
-  ```
-  - **Behind the Scenes**:
-    - **In the Call Stack**:
-      - **Identifier**: `age`
-      - **Address**: `0001` (hypothetical address)
-      - **Value**: `30`
-    
-    In this case, `age` is an identifier pointing to a memory address where the value `30` is stored. When you reference `age`, JavaScript retrieves the value from that address.
-
-- **Objects Storage**:
-  ```javascript
-  let person = { name: "Alice", age: 30 };
-  ```
-  - **In the Call Stack**:
-    - **Identifier**: `person`
-    - **Address**: `0002` (hypothetical address of the object)
-    
-  - **In the Heap**:
-    - **Address**: `D30F` (hypothetical address where the object is stored)
-    - **Value**: `{ name: "Alice", age: 30 }`
-
-Here, the variable `person` in the call stack holds a reference to the address in the heap where the object is stored.
+- Objects Storage:  
+  `let person = { name: "Alice", age: 30 };`
+  
+  -> In the Call Stack:  
+    - Identifier: `person`  
+    - Address: `0002` (hypothetical address of the object)
+  
+  -> In the Heap:  
+    - Address: `D30F` (hypothetical address where the object is stored)  
+    - Value: `{ name: "Alice", age: 30 }`
+  
+  Here, the variable `person` in the call stack holds a reference to the address in the heap where the object is stored.
 
 ---
 
-**@Mutability of Const Variables**
+@Mutability of Const Variables
+- Although `const` variables cannot be reassigned, the contents of objects or arrays declared with `const` can still be modified.
 
-Although `const` variables cannot be reassigned, the contents of objects or arrays declared with `const` can still be modified.
+- Example:  
+  `const data = { age: 30 };`  
+  `let data2 = data;` // data2 now references the same object  
+  `data2.age = 27;` // Modifying the object via data2  
+  `console.log(data.age);` // Output: 27
 
-- **Example**:
-  ```javascript
-  const data = { age: 30 };
-  let data2 = data; // data2 now references the same object
-  data2.age = 27; // Modifying the object via data2
-  console.log(data.age); // Output: 27
-  ```
+  -> Behind the Scenes:  
+    - In the Call Stack:  
+      - Identifier: `data`  
+      - Address: `0003` (hypothetical address)  
+      - Value: `D30F` (address of the object)
 
-  - **Behind the Scenes**:
-    - **In the Call Stack**:
-      - **Identifier**: `data`
-      - **Address**: `0003` (hypothetical address)
-      - **Value**: `D30F` (address of the object)
-    
-    - **In the Heap**:
-      - **Address**: `D30F`
-      - **Value**: `{ age: 27 }` (the object was modified)
+    - In the Heap:  
+      - Address: `D30F`  
+      - Value: `{ age: 27 }` (the object was modified)
 
-In this case, `data` remains a constant reference, but the contents of the object it points to can change, which demonstrates that `const` is mutable in terms of object properties.
+  In this case, `data` remains a constant reference, but the contents of the object it points to can change, which demonstrates that `const` is mutable in terms of object properties.
 
 ---
 
-**@Shallow and Deep Copying of Objects**
+@Shallow and Deep Copying of Objects
+- Shallow Copy: When copying an object using methods like `Object.assign()`, it creates a new object with the same top-level properties. If the original object contains nested objects, those nested objects are still referenced, not duplicated.
 
-- **Shallow Copy**: When copying an object using methods like `Object.assign()`, it creates a new object with the same top-level properties. If the original object contains nested objects, those nested objects are still referenced, not duplicated.
+- Example:  
+  `const original = { a: 1, b: { c: 2 } };`  
+  `const shallowCopy = Object.assign({}, original);`  
+  `shallowCopy.b.c = 3;` // This modifies the nested object in both copies  
+  `console.log(original.b.c);` // Output: 3
 
-- **Example**:
-  ```javascript
-  const original = { a: 1, b: { c: 2 } };
-  const shallowCopy = Object.assign({}, original);
-  shallowCopy.b.c = 3; // This modifies the nested object in both copies
-  console.log(original.b.c); // Output: 3
-  ```
+- Deep Copy: To copy an object deeply (including all nested objects), libraries like Lo-Dash can be used.
 
-- **Deep Copy**: To copy an object deeply (including all nested objects), libraries like **Lo-Dash** can be used.
-
-- **Example using Lo-Dash**:
-  ```javascript
-  const _ = require('lodash');
-  const original = { a: 1, b: { c: 2 } };
-  const deepCopy = _.cloneDeep(original);
-  deepCopy.b.c = 3; // This does not affect the original object
-  console.log(original.b.c); // Output: 2
-  ```
+- Example using Lo-Dash:  
+  `const _ = require('lodash');`  
+  `const original = { a: 1, b: { c: 2 } };`  
+  `const deepCopy = _.cloneDeep(original);`  
+  `deepCopy.b.c = 3;` // This does not affect the original object  
+  `console.log(original.b.c);` // Output: 2
 
 ---
 
-**@Immutable Behavior of Primitive Data Types**
+@Immutable Behavior of Primitive Data Types
+- Primitive data types are immutable, meaning when you assign a new value to a primitive variable, JavaScript creates a new memory address for the new value, leaving the original value unchanged.
 
-Primitive data types are immutable, meaning when you assign a new value to a primitive variable, JavaScript creates a new memory address for the new value, leaving the original value unchanged.
+- Example:  
+  `let score = 10;`  
+  `score = 20;` // A new address is created for the new value  
+  `console.log(score);` // Output: 20
 
-- **Example**:
-  ```javascript
-  let score = 10;
-  score = 20; // A new address is created for the new value
-  console.log(score); // Output: 20
-  ```
+  In this example, when `score` is reassigned to `20`, JavaScript creates a new memory address for this new value. The original value (`10`) remains unchanged, demonstrating the immutability of primitive types.
 
-In this example, when `score` is reassigned to `20`, JavaScript creates a new memory address for this new value. The original value (`10`) remains unchanged, demonstrating the immutability of primitive types.
+
+@ Mutating Variables
+
+- Mutating variables directly from objects requires special handling in JavaScript:
+   - Example:
+     -> `let a = 888;`
+     -> `let b = 999;`
+     -> `const obj = {a: 23, b: 14, c: 35};`
+   - Incorrect Way: This doesn't work:
+     -> `{a, b} = obj;`
+   - Correct Way: You need to wrap it in parentheses because when a line starts with `{`, JavaScript expects a code block:
+     -> `({a, b} = obj);`
+
+---
+
+@ Operator Short-circuiting
+
+- `||` (OR Operator):
+   - The `||` operator short circuits when it finds a truthy value.
+   - Example: 
+     -> `const result = 0 || 'Hello';` // 'Hello' (because 0 is falsy)
+
+- `&&` (AND Operator):
+   - The `&&` operator short circuits when it finds a falsy value.
+   - Example: 
+     -> `const result = 'Hello' && null;` // null (because null is falsy)
+
+---
+
+@ Nullish Coalescing (`??`) Operator
+
+- Nullish Coalescing considers only `null` and `undefined` as nullish values.
+- The `??` operator short circuits when it finds a non-nullish value.
+- Example:
+   -> `const result = null ?? 'Default';` // 'Default' (because null is nullish)
+   -> `const anotherResult = 0 ?? 'Default';` // 0 (because 0 is not nullish)
+
+---
+
+@ Dynamic Property Names in Objects
+
+- Dynamic property names can be used in objects when the variable name is used as the property name. To do this, we use square brackets (`[]`) instead of the dot (`.`) notation.
+- Example:
+   -> `const prop = 'age';`
+   -> `const person = { [prop]: 25 };`
+   -> `console.log(person.age);` // 25
+
+---
+
+@ Pass by Value in JavaScript
+
+- In JavaScript, everything is passed by value, even when working with objects.
+- Objects and arrays are passed by reference to the value, meaning the reference is copied, but not the actual object.
+- Example:
+   -> `let obj1 = { name: 'Alice' };`
+   -> `let obj2 = obj1;`
+   -> `obj2.name = 'Bob';`
+   -> `console.log(obj1.name);` // 'Bob' (because both obj1 and obj2 reference the same object)
+- While the reference is passed, we don’t have pass-by-reference like in some other languages.
+
+---
+
+@ Call, Apply, Bind Methods 
+
+1. **Call Method**:
+   - Definition: Call is used to call a function and tell it what `this` should be.
+   - Example: Imagine you have a car, and you want to lend it to your friend. You can say, "Hey, use my car like it's yours for this ride."
+     -> `function sayHello() {`
+     -> `console.log(\`Hello, my name is \${this.name}\`);`
+     -> `}`
+     -> `const person1 = { name: 'John' };`
+     -> `const person2 = { name: 'Alice' };`
+     -> `sayHello.call(person1);` // Hello, my name is John
+     -> `sayHello.call(person2);` // Hello, my name is Alice
+   - Use case: Useful when we want to borrow methods from one object and use them with another.
+
+2. **Apply Method**:
+   - Definition: Similar to `call`, but it takes an array of arguments instead of individual arguments.
+   - Example: You give your friend a list of things to do while borrowing your car.
+     -> `function introduce(language, country) {`
+     -> `console.log(\`Hello, my name is \${this.name}. I speak \${language} and live in \${country}.\`);`
+     -> `}`
+     -> `const person = { name: 'John' };`
+     -> `introduce.apply(person, ['English', 'USA']);`
+   - Use case: Use it when you have an array of arguments you want to pass to a function.
+
+3. **Bind Method**:
+   - Definition: `Bind` creates a new function with a specific `this` value and optional arguments.
+   - Example: You give your car to your friend, but only for a specific time (like a pre-scheduled time).
+     -> `const person = { name: 'John' };`
+     -> `function greet() {`
+     -> `console.log(\`Hello, my name is \${this.name}\`);`
+     -> `}`
+     -> `const greetPerson = greet.bind(person);`
+     -> `greetPerson();` // Hello, my name is John
+   - Use case: Use it when you want to create a copy of a function with a fixed `this` value that can be used later.
+
+---
+
+@ Closures 
+
+- Definition: A closure is like a backpack that a function carries around. Inside that backpack, it keeps variables and can use them even after the main function is done.
+- Example: Imagine a secret box that remembers what's inside, even after you've closed the box.
+    -> `function outerFunction() {`
+    -> `let secret = 'I know the secret!';`
+    -> `return function innerFunction() {`
+    -> `console.log(secret);`
+    -> `};`
+    -> `}`
+    -> `const mySecret = outerFunction();`
+    -> `mySecret();` // I know the secret!
+- Use case: Useful when we want functions to remember things like settings, preferences, or when we need privacy in code (like hiding data).
+
+---
+
+@ Example 1: Function Re-assignment with Closures
+
+#### Code Explanation:
+
+```javascript
+let f;
+
+const g = function () {
+  const a = 23;
+  f = function () {
+    console.log(a * 2);
+  };
+};
+
+const h = function () {
+  const b = 777;
+  f = function () {
+    console.log(b * 2);
+  };
+};
+
+g();
+f();
+console.dir(f);
+
+// Re-assigning f function
+h();
+f();
+console.dir(f);
+```
+
+#### What’s Happening?
+- **Step 1 (g function)**:
+  - `g` creates a local variable `a = 23`. 
+  - It then assigns a new function to `f`, where it remembers the value of `a` (closure).
+  - When `f()` is called after running `g()`, it remembers `a` and prints `46` (`a * 2`).
+  
+- **Step 2 (h function)**:
+  - The `h` function does something similar, but with `b = 777`.
+  - It reassigns the function `f` so that now it will remember `b` instead of `a`.
+  - When `f()` is called after running `h()`, it prints `1554` (`b * 2`).
+
+#### Use Case of this Example:
+- This example shows how closures remember variables even after the original function has finished. When you reassign `f`, it "remembers" different variables depending on which function (`g` or `h`) was called last.
+- Re-assigning behavior is useful when you want to have a single function (`f`) whose behavior can change dynamically based on some conditions or settings. For instance, you can use this in UI frameworks where a button click may trigger different actions depending on the state of the application.
+
+---
+
+@ Example 2: Delayed Execution with Closures
+
+#### Code Explanation:
+
+```javascript
+const boardPassengers = function (n, wait) {
+  const perGroup = n / 3;
+
+  setTimeout(function () {
+    console.log(`We are now boarding all ${n} passengers`);
+    console.log(`There are 3 groups, each with ${perGroup} passengers`);
+  }, wait * 1000);
+
+  console.log(`Will start boarding in ${wait} seconds`);
+};
+
+const perGroup = 1000;
+boardPassengers(180, 3);
+```
+
+#### What’s Happening?
+- **Step 1**: When `boardPassengers` is called with `n = 180` and `wait = 3`:
+  - It calculates `perGroup` as `180 / 3 = 60` inside the function.
+  - The message `"Will start boarding in 3 seconds"` is immediately logged to the console.
+  
+- **Step 2**: The `setTimeout` function is set to run after 3 seconds (because `wait * 1000` is used).
+  - After 3 seconds, the closure inside `setTimeout` runs, logging:
+    - `"We are now boarding all 180 passengers"`
+    - `"There are 3 groups, each with 60 passengers"`
+  - Even though the function `boardPassengers` has already completed, the `setTimeout` closure remembers the values of `n` and `perGroup`.
+
+#### Important Thing:
+- Notice that `const perGroup = 1000;` outside the function is ignored by the closure inside `setTimeout`. It still uses the local `perGroup` inside `boardPassengers` (which is 60), because closures prioritize the scope in which they were created.
+
+#### Use Case of this Example:
+- This example demonstrates a common use of closures in timing functions like `setTimeout`.
+- You might use this technique when you need to delay the
+
+ execution of code while still needing access to variables that were defined in the scope of a function. It’s often used in event handling, animation sequences, or loading processes in applications.
+
+
+
+@ Spreading and Destructuring
+
+1. Spreading:
+   - Definition: Spreading is like unpacking things from a suitcase. You spread out all the things inside.
+   - Example: You want to take all the toys out of one box and put them into another.
+      const numbers = [1, 2, 3]  
+      const moreNumbers = [...numbers, 4, 5, 6]  
+      console.log(moreNumbers) // [1, 2, 3, 4, 5, 6]  
+   - Use case: Use spreading when you want to merge arrays or objects, or when copying things quickly.
+
+2. Destructuring:
+   - Definition: Destructuring is like taking things out of a bag, but you only take out the items you need.
+   - Example: You have a backpack with a book, a pen, and a toy. You just want the book and the pen.
+      const toyBox = { car: 'red', doll: 'pink', blocks: 'blue' }  
+      const { car, doll } = toyBox  
+      console.log(car) // red  
+      console.log(doll) // pink  
+   - Use case: Destructuring is great for getting values from objects or arrays without having to type a lot.
+
+@ Spreading and Destructuring with Different Data Types
+
+1. Spreading
+
+Spreading is useful for unpacking elements from arrays, objects, or other iterable data types.
+
+1.1 Spreading Arrays
+
+- Merging Arrays:
+   - Example:  
+      const arr1 = [1, 2, 3]  
+      const arr2 = [4, 5, 6]  
+      const mergedArray = [...arr1, ...arr2]  
+      console.log(mergedArray) // [1, 2, 3, 4, 5, 6]  
+
+- Copying Arrays:
+   - Example:  
+      const originalArray = [1, 2, 3]  
+      const copyArray = [...originalArray]  
+      console.log(copyArray) // [1, 2, 3]  
+
+- Adding New Elements:
+   - Example:  
+      const numbers = [1, 2, 3]  
+      const moreNumbers = [...numbers, 4, 5]  
+      console.log(moreNumbers) // [1, 2, 3, 4, 5]  
+
+1.2 Spreading Objects
+
+- Merging Objects:
+   - Example:  
+      const obj1 = { name: 'John', age: 30 }  
+      const obj2 = { job: 'Developer', country: 'USA' }  
+      const mergedObject = { ...obj1, ...obj2 }  
+      console.log(mergedObject)  
+      // { name: 'John', age: 30, job: 'Developer', country: 'USA' }  
+
+- Copying Objects:
+   - Example:  
+      const originalObj = { name: 'Alice', age: 25 }  
+      const copyObj = { ...originalObj }  
+      console.log(copyObj) // { name: 'Alice', age: 25 }  
+
+- Overwriting Properties:
+   - Example:  
+      const person = { name: 'John', age: 30 }  
+      const updatedPerson = { ...person, age: 35 }  
+      console.log(updatedPerson) // { name: 'John', age: 35 }  
+
+1.3 Spreading Strings
+
+- Spreading Characters in a String:
+   - Example:  
+      const greeting = 'Hello'  
+      const letters = [...greeting]  
+      console.log(letters) // ['H', 'e', 'l', 'l', 'o']  
+
+1.4 Spreading with Function Arguments (Rest Parameters)
+
+- Passing Arrays as Function Arguments:
+   - Example:  
+      function sum(x, y, z) {  
+         return x + y + z  
+      }  
+
+      const numbers = [1, 2, 3]  
+      console.log(sum(...numbers)) // 6  
+
+- Combining Rest with Spreading:
+   - Example:  
+      function displayNames(...names) {  
+         console.log(names)  
+      }  
+
+      const people = ['John', 'Alice', 'Bob']  
+      displayNames(...people) // ['John', 'Alice', 'Bob']  
+
+2. Destructuring
+
+Destructuring is used to unpack values from arrays or properties from objects into distinct variables.
+
+2.1 Destructuring Arrays
+
+- Basic Destructuring:
+   - Example:  
+      const fruits = ['Apple', 'Banana', 'Orange']  
+      const [first, second, third] = fruits  
+      console.log(first) // Apple  
+      console.log(second) // Banana  
+      console.log(third) // Orange  
+
+- Skipping Elements:
+   - Example:  
+      const colors = ['Red', 'Green', 'Blue']  
+      const [, , thirdColor] = colors  
+      console.log(thirdColor) // Blue  
+
+- Using Default Values:
+   - Example:  
+      const numbers = [1, 2]  
+      const [a, b, c = 3] = numbers  
+      console.log(a) // 1  
+      console.log(b) // 2  
+      console.log(c) // 3 (default)  
+
+- Swapping Variables:
+   - Example:  
+      let x = 1  
+      let y = 2  
+      [x, y] = [y, x]  
+      console.log(x) // 2  
+      console.log(y) // 1  
+
+2.2 Destructuring Objects
+
+- Basic Destructuring:
+   - Example:  
+      const person = { name: 'John', age: 30 }  
+      const { name, age } = person  
+      console.log(name) // John  
+      console.log(age) // 30  
+
+- Using Different Variable Names:
+   - Example:  
+      const car = { brand: 'Toyota', model: 'Camry' }  
+      const { brand: carBrand, model: carModel } = car  
+      console.log(carBrand) // Toyota  
+      console.log(carModel) // Camry  
+
+- Setting Default Values:
+   - Example:  
+      const user = { name: 'Alice' }  
+      const { name, age = 25 } = user  
+      console.log(name) // Alice  
+      console.log(age) // 25 (default)  
+
+- Nested Object Destructuring:
+   - Example:  
+      const employee = {  
+         id: 101,  
+         name: 'Bob',  
+         address: {  
+            city: 'New York',  
+            country: 'USA'  
+         }  
+      }  
+      const { name, address: { city, country } } = employee  
+      console.log(city) // New York  
+      console.log(country) // USA  
+
+2.3 Destructuring Function Parameters
+
+- Destructuring Arrays in Functions:
+   - Example:  
+      function printNumbers([a, b, c]) {  
+         console.log(a, b, c)  
+      }  
+
+      const numbers = [1, 2, 3]  
+      printNumbers(numbers) // 1 2 3  
+
+- Destructuring Objects in Functions:
+   - Example:  
+      function printPerson({ name, age }) {  
+         console.log(`Name: ${name}, Age: ${age}`)  
+      }  
+
+      const person = { name: 'Alice', age: 25 }  
+      printPerson(person) // Name: Alice, Age: 25  
+
+3. Special Cases
+
+3.1 Destructuring with Rest Operator
+
+- Extracting Remaining Elements:
+   - Example:  
+      const numbers = [1, 2, 3, 4, 5]  
+      const [first, second, ...rest] = numbers  
+      console.log(first) // 1  
+      console.log(second) // 2  
+      console.log(rest) // [3, 4, 5]  
+
+- Extracting Remaining Properties:
+   - Example:  
+      const car = { brand: 'Toyota', model: 'Corolla', year: 2020 }  
+      const { brand, ...otherDetails } = car  
+      console.log(brand) // Toyota  
+      console.log(otherDetails) // { model: 'Corolla', year: 2020 }  
+
+3.2 Destructuring Nested Arrays
+
+- Nested Array Destructuring:
+   - Example:  
+      const nestedArray = [1, [2, 3], 4]  
+      const [first, [second, third], fourth] = nestedArray  
+      console.log(first) // 1  
+      console.log(second) // 2  
+      console.log(third) // 3  
+      console.log(fourth) // 4  
+
+@ Conclusion:
+
+- Spreading is useful for copying, merging, and passing data (arrays, objects, and strings).
+- Destructuring simplifies extracting values from arrays, objects, and function parameters while allowing for default values and renaming.
+
+
+
+### @ Summary of Use Cases
+
+- **Call, Apply, Bind**: 
+  - Borrowing methods from other objects.
+  - Useful when you want to reuse functions but need to change the `this` context.
+  - `Call` and `Apply` differ only in how they pass arguments (separately vs. in arrays).
+  - `Bind` is good when you need to set a permanent `this` for later use.
+
+- **Closures**:
+  - When you want a function to "remember" something.
+  - Helps in making private variables or persistent states in your code.
+
+- **Spreading**:
+  - Merging, copying, or combining arrays/objects easily.
+
+- **Destructuring**:
+  - Extracting values from objects or arrays.
+  - Simplifies pulling out only the data you need.
+
+
+
+forEach Loop passes, current value, current index, the orginal array in the arguments for the call back functon. Also doesn't support any kind of Break or Continue. So whenever the continue and breaks are needed its preferred to use for of loop
 */
 
 /*
