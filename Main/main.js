@@ -785,7 +785,151 @@ Destructuring is used to unpack values from arrays or properties from objects in
 
 
 
-forEach Loop passes, current value, current index, the orginal array in the arguments for the call back functon. Also doesn't support any kind of Break or Continue. So whenever the continue and breaks are needed its preferred to use for of loop
+### @Map:
+`Map` is used to **transform every element** in an array. It applies a function to each element and returns a **new array** with the transformed values.
+
+- **Example:** You want to convert a list of prices in dollars to euros.
+  - `[100, 200, 300]` -> After `map()`, you get `[90, 180, 270]` (assuming $1 = €0.90).
+
+- **Arguments:** 
+  - `(element, index)` – `element` is the value, and `index` is the position of the item in the array.
+
+### @Reduce:
+`Reduce` takes an array and **reduces it to a single value** (like sum, product, etc.). It goes through the array and combines everything into one result.
+
+- **Example:** You want to sum all the numbers in an array.
+  - `[100, 200, 300]` -> After `reduce()`, you get `600`.
+
+- **Arguments:**
+  - `(accumulator, currentValue)` – `accumulator` stores the accumulated result, and `currentValue` is the current element.
+
+### @Filter:
+`Filter` creates a **new array** with elements that pass a condition. It doesn’t change the original array but **filters** out the unwanted items.
+
+- **Example:** You want to keep only the numbers greater than 150.
+  - `[100, 200, 300]` -> After `filter()`, you get `[200, 300]`.
+
+- **Arguments:**
+  - `(element, index)` – `element` is checked against the condition, and the index can be used for additional logic.
+
+### @FindIndexOf:
+`FindIndex` returns the **position (index)** of the first element that matches a condition.
+
+- **Example:** Find the index of the first number greater than 200.
+  - `[100, 200, 300]` -> `findIndex()` returns `2` because `300` is the first number greater than 200.
+
+- **Arguments:**
+  - `(element, index)` – `element` is compared to the condition, and the index is its position in the array.
+
+### @Find:
+`Find` returns the **first element** that matches a condition, instead of the index.
+
+- **Example:** Find the first number greater than 200.
+  - `[100, 200, 300]` -> `find()` returns `300` because it’s the first number greater than 200.
+
+- **Arguments:**
+  - `(element, index)` – Similar to `findIndex`, but returns the actual element instead of its position.
+
+### @Flat:
+`Flat` is used to **flatten nested arrays**. You can specify how many levels deep you want to flatten with an argument.
+
+- **Example:** Flatten a nested array.
+  - `[1, [2, [3, [4]]]]`
+  - `flat(1)` -> `[1, 2, [3, [4]]]`
+  - `flat(2)` -> `[1, 2, 3, [4]]`
+  - `flat(Infinity)` -> `[1, 2, 3, 4]`
+
+- **Arguments:**
+  - `flat(depth)` – The `depth` determines how many levels to flatten. Defaults to 1 if no argument is provided.
+
+### @FlatMap:
+`FlatMap` is a combination of `map()` and `flat()`. It first applies a transformation with `map()`, then automatically flattens the result **one level deep**.
+
+- **Example:** Double the numbers and flatten the array.
+  - `[[1, 2], [3, 4]]`
+  - After `flatMap()`, you get `[2, 4, 6, 8]`.
+
+- **Arguments:** 
+  - Same as `map()`, it takes a callback function with `(element, index)`.
+
+### @Some:
+`Some` checks if **at least one element** in the array passes a condition. It returns `true` if any element matches, otherwise `false`.
+
+- **Example:** Check if any number in the array is greater than 100.
+  - `[50, 60, 200]` -> After `some()`, it returns `true` because `200` is greater than 100.
+
+- **Arguments:**
+  - `(element, index)` – The function checks if an element satisfies the condition.
+
+### @Every:
+`Every` checks if **all elements** in the array match a condition. If all elements pass, it returns `true`, otherwise `false`.
+
+- **Example:** Check if all numbers are greater than 50.
+  - `[60, 70, 80]` -> `every()` returns `true`.
+  - `[60, 40, 80]` -> `every()` returns `false` because `40` is less than 50.
+
+- **Arguments:**
+  - `(element, index)` – The function checks every element against the condition.
+
+---
+
+### @Sort Method:
+In **JavaScript**, the `sort()` method converts everything into strings before sorting. This is why it might sort numbers in a weird way.
+
+- **Example (Default Behavior):**
+  - `[3000, 70, 45, 100]`
+  - Default `sort()` compares as strings, so it results in `[100, 3000, 45, 70]`.
+
+To fix this and sort numbers numerically, you use a **callback function**.
+
+- **Example (Ascending Order):**
+  - `[3000, 70, 45, 100]`
+  - `sort((a, b) => a - b)` -> `[45, 70, 100, 3000]`.
+
+- **Example (Descending Order):**
+  - `[3000, 70, 45, 100]`
+  - `sort((a, b) => b - a)` -> `[3000, 100, 70, 45]`.
+
+- **Arguments:**
+  - `(a, b)` – The function compares two elements. If `a - b` is negative, `a` comes first; if positive, `b` comes first.
+
+---
+
+### @`new Array(7)`:
+When you do `new Array(7)`, it creates an array with **7 empty slots**. These slots are not filled with values, so most array methods like `map()` won’t work properly on it. 
+
+- **Example:** You can only use methods like `fill()` to populate the array:
+  - `new Array(7).fill(1)` -> `[1, 1, 1, 1, 1, 1, 1]`.
+
+---
+
+### @`Array.from()`:
+`Array.from()` is useful for converting **array-like objects** (like `NodeList`) into a real array. It can also be used to create arrays from objects or lengths.
+
+- **Example 1 (Convert `NodeList` to Array):** If you get a `NodeList` from `querySelectorAll()`, you can convert it to an array:
+  - `Array.from(nodeList)` -> Now you can use array methods like `map()`.
+
+- **Example 2 (With Length Property):**
+  - `Array.from({ length: 5 })` -> Creates an array with 5 elements: `[undefined, undefined, undefined, undefined, undefined]`.
+
+- **Example 3 (With Callback Function):**
+  - `Array.from({ length: 5 }, (_, i) => i * i)` -> Creates an array of squares: `[0, 1, 4, 9, 16]`.
+
+- **Arguments:**
+  - `Array.from(arrayLike, callback)` – The first argument is the array-like object, and the second is a callback function that works like `map()`.
+
+---
+
+### Final Notes:
+- `FlatMap` flattens **one level deep**.
+- `Flat` can flatten **multiple levels** using the depth argument.
+- `Sort` can sort numbers numerically by using a **callback function**.
+- `Array.from()` can be used with a **length property** and a callback function to initialize values.
+
+forEach Loop:
+It passes current value, current index, and the original array as arguments to the callback function.
+Limitation: It doesn't support break or continue statements.
+When you need to use break or continue, it's better to use a for...of loop.
 */
 
 /*
@@ -878,6 +1022,7 @@ Tips & Tricks:
 ### **7. Is Strict Mode Better than Sloppy Mode?**
 
 Yes, in most cases, Strict Mode is better than Sloppy Mode and should be preferred, especially in professional settings. It enhances code quality, reduces the chances of errors, and promotes good coding practices, which is crucial in a work environment where reliability and maintainability are essential.
+
 
 
 
