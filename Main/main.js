@@ -930,6 +930,106 @@ forEach Loop:
 It passes current value, current index, and the original array as arguments to the callback function.
 Limitation: It doesn't support break or continue statements.
 When you need to use break or continue, it's better to use a for...of loop.
+
+
+Here are the explanations for the points you mentioned, along with the revised notes:
+
+@Numbers in JavaScript
+
+#### Definition
+- **Numbers** in JavaScript represent both integers and floating-point values. JavaScript uses a 64-bit format for numerical representation, which is consistent with the IEEE 754 standard for double-precision floating-point numbers.
+
+#### Key Points
+1. **Equality of Numbers**:  
+   - `23 === 23.0`  
+   - In JavaScript, integers and floating-point numbers are treated as equal.
+
+2. **Storage Format**:  
+   - Numbers are stored in a **binary format** (Base 2).
+   - **Base 10 (Decimal)**: Uses digits 0-9.
+   - **Base 2 (Binary)**: Uses digits 0 and 1.
+     - Example: In Base 2, the sum `0.1 + 0.3` may yield `0.30000000000000004` instead of the expected `0.3` due to floating-point precision issues.
+
+3. **Precision Issues**:  
+   - JavaScript (like many languages such as PHP or Ruby) sometimes hides precision issues in arithmetic operations. 
+   - It is important to be aware that scientific or financial calculations may not be accurate in JavaScript due to these limitations.
+
+4. **Number Conversion Functions**:  
+   - **Number(str)**: Converts a string to a number. Example: `Number.parseInt('30px', 2)` converts a string to an integer based on the specified base (2 in this case).
+     - **Arguments**:
+       - First argument: The string to be converted.
+       - Second argument: The base (e.g., 10 for decimal, 2 for binary).
+     - Important: The string should start with numeric characters.
+
+   - **Number.parseFloat(str)**: Similar to `parseInt`, but for floating-point numbers. 
+     - Example: `Number.parseFloat('30.5px')` would return `30.5`.
+
+5. **Global Objects**:  
+   - `isNaN(value)`: Determines whether the value is NaN (Not-a-Number).
+   - `isFinite(value)`: Checks if the value is a finite number.
+
+6. **Bit Representation**:  
+   - A **64-bit representation** means 64 bits are used to represent a number. 
+   - However, only **53 bits** are used for the actual digits, while the rest are used for the decimal point and its position.
+
+7. **Max Safe Integer**:  
+   - Numbers larger than `Number.MAX_SAFE_INTEGER` (2^53 - 1) may produce inaccuracies in calculations.
+
+8. **BigInt**:  
+   - Appending `n` to a number (e.g., `123n`) converts it to a BigInt. 
+   - The `BigInt()` function can also be used. It's advisable to use BigInt with smaller numbers to avoid performance issues.
+
+9. **Date Object and UTC**:  
+   - The letter **"Z"** in date strings refers to **UTC** (Coordinated Universal Time), which is a standard time without any time zone or daylight savings adjustment. 
+   - **Example**: `console.log(new Date(2037, 12, 28, 23, 59, 5));`
+     - This creates a date object for **December 28, 2037**, at **23:59:05** (11:59:05 PM). The parameters are structured as follows:
+       - Year: `2037`
+       - Month: `12` (December; note that months are 0-indexed, so 0 = January)
+       - Date: `28`
+       - Hours: `23`
+       - Minutes: `59`
+       - Seconds: `5`
+
+10. **Handling Invalid Dates**:  
+    - When passing values outside the expected range, such as `console.log(new Date(2037, 59, 5));`, the behavior can be unexpected:
+      - In this case, `59` as a month will be interpreted as **July of the following year** (2038), because there are only 12 months (0-11). Thus, this would create a date for **July 5, 2038**.
+
+11. **Unix Time**:  
+    - Unix time begins on **January 1, 1970**. 
+    - Example: `new Date(0)` creates a date object set to this epoch time.
+    - Useful methods:
+      - `toISOString()`: Converts the date to a string in the ISO format.
+      - `getTime()`: Returns the number of milliseconds since the Unix epoch.
+
+---
+
+### Definitions
+
+- **Base 2 (Binary)**: A numeral system that uses two symbols, typically 0 and 1. Each digit in a binary number represents a power of 2. It is the foundation of computer processing and data representation.
+
+- **Base 10 (Decimal)**: The standard numeral system used in everyday life, consisting of ten symbols (0-9). Each digit's position represents a power of 10, making it easier for humans to perform calculations.
+
+- **64-bit**: A data type that uses 64 bits (or 8 bytes) to represent a value. In computing, a 64-bit architecture can handle a vast range of numbers (up to 2^64 distinct values) and allows for more memory access compared to 32-bit systems.
+
+- **UTC (Coordinated Universal Time)**: A time standard that serves as the basis for civil timekeeping worldwide. It is not affected by time zones or Daylight Saving Time, making it a consistent reference for global time.
+
+- **Daylight Saving Time**: A practice where clocks are set forward by one hour during the warmer months to extend evening daylight. Typically, this occurs in spring and reverts in autumn, aiming to make better use of daylight.
+
+- **UNIX Time**: A system for tracking time represented as the number of seconds that have elapsed since **January 1, 1970, at 00:00:00 UTC**, not counting leap seconds. It is widely used in computing for date and time representation.
+
+
+Internalization API
+For refertence of locale string us e this webiste
+http://www.lingoes.net/en/translator/langcode.htm
+These are some of teh examples
+const options = {
+  hour: 'numeric',
+  minute: 'numeric',
+  day: 'numeric',
+  month: 'long',
+};
+
+we can sue navigator.language
 */
 
 /*
