@@ -1288,6 +1288,102 @@ The **relative time zone** in JavaScript allows you to display how far an event 
 3. **Local Storage:** The weather data is saved to **local storage** so that the next time the user visits, they can quickly view the latest weather without having to re-enter their city.
 
 
+### 1. Bubbling Phase and Capturing Phase
+**Definitions:**
+- **Bubbling Phase:** This phase occurs when an event starts from the target element and then bubbles up to the root of the DOM. For example, if you click on a button inside a div, the event will first trigger the button's event handlers and then move up to the div and its parent elements.
+
+- **Capturing Phase:** In this phase, the event starts from the root of the DOM and travels down to the target element. Continuing the previous example, if the same button is clicked, the event will first trigger the handlers of the parent div, moving downward until it reaches the button.
+
+**Example Use Case:**  
+Consider a nested structure:
+```html
+<div id="parent">
+    <button id="child">Click me</button>
+</div>
+```
+- **Bubbling:** If you attach a click event to both the button and the div, and you click the button, the button's handler runs first, followed by the div's handler.
+  
+- **Capturing:** If you switch to capturing mode (using `addEventListener` with the third parameter set to `true`), the div's handler will run before the button's when clicking the button.
+
+---
+
+### 2. Target Phase
+**Definition:** The target phase is when the event is executed specifically on the target element that triggered the event. For instance, when you click the button in the previous example, the button itself is the target, and its event handlers are executed.
+
+---
+
+### 3. Viewport
+**Definition:** The viewport is the visible area of a web page in the browser. It’s essentially the user’s screen size minus any scrollbars or other interface elements.
+
+---
+
+### 4. `getBoundingClientRect()`
+**Definition:** This method returns the size of an element and its position relative to the viewport. It provides an object with properties like `top`, `right`, `bottom`, `left`, `width`, and `height`.
+
+**Points for Calculation:**
+- **From:** The edges of the viewport (the visible area of the browser window).
+- **To:** The edges of the element being measured.
+
+**Example Use Case:**
+```javascript
+const rect = element.getBoundingClientRect();
+console.log(rect.top, rect.left); // Logs the position of the element relative to the viewport
+```
+
+---
+
+### 5. `window.pageXOffset` and `window.pageYOffset`
+**Definitions:**  
+- **`window.pageXOffset`:** This property returns the number of pixels that the document has been scrolled horizontally from the left edge of the viewport to the left edge of the document.
+  
+- **`window.pageYOffset`:** This property returns the number of pixels that the document has been scrolled vertically from the top edge of the viewport to the top edge of the document.
+
+**Example Use Case:**
+```javascript
+console.log(window.pageXOffset, window.pageYOffset); // Logs current horizontal and vertical scroll position
+```
+
+---
+
+### 6. Client Height and Width
+**Definitions:**
+- **Client Height:** This property returns the inner height of an element in pixels, including padding but not the horizontal scrollbar, border, or margin.
+  
+- **Client Width:** Similarly, this property returns the inner width of an element in pixels.
+
+**Example Use Case:**
+```javascript
+const element = document.getElementById('myElement');
+console.log(element.clientHeight, element.clientWidth); // Logs the height and width of the element
+```
+
+---
+
+### 7. `window.scrollTo()`
+**Definition:** The `window.scrollTo(x, y)` method scrolls the document to a specified set of coordinates, where `x` represents the horizontal position and `y` represents the vertical position.
+
+**Arguments:**
+- **x:** The number of pixels to scroll horizontally (from the left edge of the document).
+- **y:** The number of pixels to scroll vertically (from the top edge of the document).
+
+**Example Use Case:**
+```javascript
+window.scrollTo(200, 400); // Scrolls 200 pixels right and 400 pixels down
+```
+
+---
+
+### 8. Scroll Into View
+**Definition:** This method scrolls the element into the visible area of the browser window.
+
+**Example Use Case:**
+```javascript
+const element = document.getElementById('myElement');
+element.scrollIntoView(); // Scrolls the element into view
+```
+
+
+
 */
 
 /*
