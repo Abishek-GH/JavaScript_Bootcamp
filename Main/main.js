@@ -1382,6 +1382,646 @@ const element = document.getElementById('myElement');
 element.scrollIntoView(); // Scrolls the element into view
 ```
 
+Here's your organized and detailed set of notes on the given JavaScript concepts and Object-Oriented Programming (OOP) principles:
+
+---
+
+## **Object-Oriented Programming (OOP)**
+
+### **1. Overview**
+- **OOP** is a programming paradigm that focuses on creating objects to model real-world entities and their interactions.
+- The main goal is to organize code to make it more maintainable, scalable, and reusable, thus avoiding "spaghetti code."
+- **Paradigm**: Refers to the style or approach of coding.
+- **Public Interface (API)**: Methods and properties exposed by an object for interaction with other parts of the code.
+
+---
+
+## **2. Key Concepts in OOP**
+
+### **i. Class**
+- A **Class** is a **blueprint** used to create objects (instances).
+- It defines properties (state) and methods (behavior) that its instances will have.
+- Objects created from a class are referred to as **instances** of that class.
+
+### **ii. State and Behavior**
+- **State**: Refers to the data stored in an object (e.g., properties).
+- **Behavior**: Refers to the actions the object can perform (e.g., methods).
+
+### **iii. Principles of OOP**
+1. **Abstraction**: Hiding complex implementation details and exposing only essential features.
+2. **Encapsulation**: Bundling data and methods that operate on that data within a single unit (class). It also restricts direct access to some of the object's components.
+3. **Inheritance**: Mechanism where a class derives properties and methods from another class.
+4. **Polymorphism**: Ability to use a method in different ways, typically through method overriding or overloading.
+
+---
+
+## **3. Prototypal Inheritance in JavaScript**
+
+### **i. Understanding Prototypes**
+- **Prototype**: Every JavaScript object is linked to a prototype, which provides shared methods and properties.
+- Objects created using **constructor functions** or **classes** inherit from their prototype.
+- Methods defined on the prototype can be shared across instances, saving memory.
+
+### **ii. `hasOwnProperty()`**
+- Checks if a property is **directly defined** on the object itself and not inherited from the prototype.
+
+---
+
+## **4. Constructor Functions**
+
+### **i. Basics**
+```js
+'use strict';
+
+const Person = function (firstName, birthYear) {
+  this.firstName = firstName;
+  this.birthYear = birthYear;
+};
+
+const jonas = new Person('Jonas', 1991);
+console.log(jonas);
+```
+- A **constructor function** is used to create objects.
+- The `new` keyword:
+  - Creates an empty object `{}`.
+  - Sets `this` to the new object.
+  - Links the object to a prototype.
+  - Returns the object.
+
+### **ii. Adding Methods to the Prototype**
+```js
+Person.prototype.calcAge = function () {
+  console.log(2024 - this.birthYear);
+};
+jonas.calcAge(); // Output: 33
+```
+- Defining methods on the prototype ensures that they are not duplicated for each instance.
+
+---
+
+## **5. Class Syntax (ES6)**
+
+### **i. Class Declaration**
+```js
+class PersonCl {
+  constructor(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  }
+
+  // Method defined on the prototype
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  }
+}
+
+const jessica = new PersonCl('Jessica', 1996);
+console.log(jessica);
+jessica.calcAge(); // Output: 41
+```
+- Classes in JavaScript are essentially **syntactic sugar** over constructor functions.
+- **Classes are not hoisted**, meaning they cannot be used before they are defined.
+- **Classes operate in strict mode** by default.
+
+### **ii. Adding Methods to the Prototype**
+```js
+PersonCl.prototype.greet = function () {
+  console.log('Hey, Good Evening');
+};
+jessica.greet(); // Output: Hey, Good Evening
+```
+
+---
+
+## **6. Example: Car Constructor Function**
+
+### **i. Constructor Function Example**
+```js
+const Car = function (make, speed) {
+  this.make = make;
+  this.speed = speed;
+};
+
+Car.prototype.accelerate = function () {
+  this.speed += 10;
+  console.log(`${this.speed} km/h`);
+};
+
+Car.prototype.brake = function () {
+  this.speed -= 5;
+  console.log(`${this.speed} km/h`);
+};
+
+const bmw = new Car('BMW', 120);
+bmw.accelerate(); // Output: 130 km/h
+bmw.brake();      // Output: 125 km/h
+```
+- This example demonstrates how to use a constructor function to create instances and define shared methods using prototypes.
+
+---
+
+## **7. Behind the Scenes of Classes**
+
+- **Classes are still functions** behind the scenes in JavaScript.
+- They can be created using either **declaration** or **expression** syntax:
+  ```js
+  // Class Expression
+  const PersonClExp = class {};
+  
+  // Class Declaration
+  class PersonClDec {}
+  ```
+- **First-class citizens**: Classes can be passed as arguments, returned from functions, and assigned to variables.
+
+---
+
+## **8. Additional Notes**
+- Always use `'use strict'` to enforce secure coding practices.
+- Use **classes and prototypes** effectively to optimize memory usage by sharing methods among instances.
+- Understanding OOP and prototypes in JavaScript is crucial for writing clean, efficient, and modular code.
+
+Alright bro, let's break down these JavaScript concepts into simpler terms. I'll explain each topic in detail and make sure to clarify the `this` keyword with specific examples since that’s an area you're confused about.
+
+---
+
+### 1. **Constructor Function vs. Classes**
+
+#### **Constructor Functions:**
+- A **constructor function** is a special function used to create and initialize objects in JavaScript.
+- Before ES6, it was the primary way to create objects that share properties and methods.
+- By convention, the name of a constructor function starts with a capital letter.
+
+**Example:**
+```js
+function Car(brand, model) {
+  this.brand = brand;
+  this.model = model;
+}
+
+const myCar = new Car('Bajaj', 'Dominar 400');
+console.log(myCar); // Output: { brand: 'Bajaj', model: 'Dominar 400' }
+```
+
+- Here, `this` refers to the new object being created (`myCar`).
+
+#### **Classes (ES6):**
+- **Classes** were introduced in ES6 as a more intuitive way to create objects and handle inheritance.
+- Under the hood, classes are just syntactic sugar over constructor functions.
+
+**Example:**
+```js
+class Car {
+  constructor(brand, model) {
+    this.brand = brand;
+    this.model = model;
+  }
+}
+
+const myCar = new Car('Bajaj', 'Dominar 400');
+console.log(myCar); // Output: { brand: 'Bajaj', model: 'Dominar 400' }
+```
+
+- The `constructor` method is used to initialize the object's properties.
+- Classes also support methods directly inside their definition, making them cleaner and easier to read.
+
+---
+
+### 2. **Object.get Method vs. Classic Methods**
+
+The `Object.get` methods (like `Object.getPrototypeOf`) are newer ways to access an object's properties or prototype chain.
+
+#### **Object.create vs. Classic Constructor Function**
+- `Object.create` creates a new object with a specified prototype.
+  
+**Example using `Object.create`:**
+```js
+const personProto = {
+  greet() {
+    console.log(`Hello, my name is ${this.name}`);
+  }
+};
+
+const student = Object.create(personProto);
+student.name = 'Abishek';
+student.greet(); // Output: Hello, my name is Abishek
+```
+
+- Here, `student` inherits methods from `personProto`.
+
+**Example using Constructor Function:**
+```js
+function Person(name) {
+  this.name = name;
+}
+
+Person.prototype.greet = function () {
+  console.log(`Hello, my name is ${this.name}`);
+};
+
+const student = new Person('Abishek');
+student.greet(); // Output: Hello, my name is Abishek
+```
+
+---
+
+### 3. **Encapsulation vs. Abstraction**
+
+#### **Encapsulation:**
+- It's about **restricting direct access** to some of an object's components and can be achieved by using private variables or closures.
+- In JavaScript (using ES6 classes), we can use `#` to make properties private.
+
+**Example:**
+```js
+class User {
+  #password;
+  constructor(username, password) {
+    this.username = username;
+    this.#password = password; // Private property
+  }
+  
+  getPassword() {
+    return this.#password;
+  }
+}
+
+const user = new User('abishek', '1234');
+console.log(user.getPassword()); // Output: 1234
+console.log(user.#password); // Error: Private field
+```
+
+#### **Abstraction:**
+- It's about **hiding complex implementation details** and showing only the necessary parts to the user.
+- You only expose methods that are needed, while the internal logic is hidden.
+
+---
+
+### 4. **Understanding the `this` Keyword**
+
+The value of `this` depends on **how** a function is called:
+
+#### **A. In Global Scope**
+```js
+console.log(this); // Refers to the global object (window in browsers)
+```
+
+#### **B. Inside a Function**
+```js
+function showThis() {
+  console.log(this);
+}
+showThis(); // Output: global object (or `undefined` in strict mode)
+```
+
+#### **C. Inside a Method**
+```js
+const bike = {
+  brand: 'Bajaj',
+  getBrand() {
+    console.log(this.brand);
+  }
+};
+bike.getBrand(); // Output: Bajaj
+```
+- Here, `this` refers to the `bike` object because the method is called on it.
+
+#### **D. In an Arrow Function**
+```js
+const car = {
+  model: 'Dominar',
+  getModel: () => {
+    console.log(this.model);
+  }
+};
+car.getModel(); // Output: undefined (arrow functions do not have their own `this`)
+```
+
+#### **E. With Constructor Functions**
+```js
+function Animal(type) {
+  this.type = type;
+}
+const dog = new Animal('Dog');
+console.log(dog.type); // Output: Dog
+```
+- `this` refers to the newly created object (`dog`).
+
+#### **F. With `call`, `apply`, and `bind`**
+- These methods allow you to explicitly set `this`.
+
+**Example:**
+```js
+function greet() {
+  console.log(`Hello, I am ${this.name}`);
+}
+
+const person = { name: 'Abishek' };
+greet.call(person); // Output: Hello, I am Abishek
+```
+
+---
+
+### **Bonus Point Example**:
+
+Let's revisit your specific code:
+
+```js
+const Student = function (firstName, birthYear, course) {
+  Person.call(this, firstName, birthYear);
+  this.course = course;
+};
+```
+
+#### **Explanation**:
+- This is a **constructor function** where `Person.call(this, firstName, birthYear)` is used to inherit properties from a parent function (`Person`).
+- The `call` method ensures that `this` refers to the new `Student` object being created.
+
+Assuming `Person` is defined as:
+```js
+const Person = function (firstName, birthYear) {
+  this.firstName = firstName;
+  this.birthYear = birthYear;
+};
+
+const Student = function (firstName, birthYear, course) {
+  Person.call(this, firstName, birthYear); // Inherit properties from Person
+  this.course = course;
+};
+
+const student1 = new Student('Abishek', 2001, 'Engineering');
+console.log(student1);
+// Output: { firstName: 'Abishek', birthYear: 2001, course: 'Engineering' }
+```
+
+- `this` in `Person.call(this, firstName, birthYear)` refers to the new `Student` object (`student1`).
+  
+---
+
+Ah, got it, bro! Let's dive deeper into how **Object-Oriented Programming (OOP)** concepts are applied in JavaScript using **ES6 classes**, **`Object.create()`**, and **constructor functions**.
+
+---
+
+### **OOP Concepts in JavaScript (ES6 Classes, Object.create, and Constructor Functions)**
+
+JavaScript supports core OOP principles like **Encapsulation**, **Abstraction**, **Inheritance**, and **Polymorphism**. Let's see how these concepts can be implemented using different approaches in JavaScript:
+
+#### **1. Encapsulation**
+- Encapsulation is achieved by bundling data (properties) and methods (functions) inside a single unit, usually a class.
+- ES6 classes allow us to create private fields using `#`.
+
+**Example using ES6 Classes:**
+```js
+class Car {
+  #speed; // Private property
+  constructor(brand, model, speed) {
+    this.brand = brand;
+    this.model = model;
+    this.#speed = speed;
+  }
+
+  getDetails() {
+    return `${this.brand} ${this.model} is running at ${this.#speed} km/h`;
+  }
+
+  accelerate() {
+    this.#speed += 10;
+  }
+}
+
+const myCar = new Car('Bajaj', 'Dominar 400', 100);
+myCar.accelerate();
+console.log(myCar.getDetails()); // Output: Bajaj Dominar 400 is running at 110 km/h
+```
+
+- Here, the `#speed` property is encapsulated within the class and can't be accessed directly.
+
+#### **2. Inheritance**
+
+Inheritance allows one class to **inherit properties and methods** from another class.
+
+**A. Using ES6 Classes:**
+```js
+class Person {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+
+  greet() {
+    console.log(`Hi, I'm ${this.name}`);
+  }
+}
+
+class Student extends Person {
+  constructor(name, age, course) {
+    super(name, age); // Call the parent class constructor
+    this.course = course;
+  }
+
+  study() {
+    console.log(`${this.name} is studying ${this.course}`);
+  }
+}
+
+const student1 = new Student('Abishek', 23, 'Engineering');
+student1.greet(); // Output: Hi, I'm Abishek
+student1.study(); // Output: Abishek is studying Engineering
+```
+
+- The `Student` class inherits from `Person`, gaining access to its properties and methods.
+
+**B. Using Constructor Functions and `Object.create()`:**
+```js
+const Person = function (name, age) {
+  this.name = name;
+  this.age = age;
+};
+
+Person.prototype.greet = function () {
+  console.log(`Hi, I'm ${this.name}`);
+};
+
+const Student = function (name, age, course) {
+  Person.call(this, name, age); // Inherit properties
+  this.course = course;
+};
+
+Student.prototype = Object.create(Person.prototype);
+Student.prototype.study = function () {
+  console.log(`${this.name} is studying ${this.course}`);
+};
+
+const student2 = new Student('Abishek', 23, 'Engineering');
+student2.greet(); // Output: Hi, I'm Abishek
+student2.study(); // Output: Abishek is studying Engineering
+```
+
+- Here, `Object.create()` sets up the prototype chain, allowing `Student` to inherit from `Person`.
+
+#### **3. Polymorphism**
+- Polymorphism allows different classes to be treated as instances of the same class through a common interface.
+
+**Example using Method Overriding:**
+```js
+class Animal {
+  speak() {
+    console.log('Animal makes a sound');
+  }
+}
+
+class Dog extends Animal {
+  speak() {
+    console.log('Dog barks');
+  }
+}
+
+const animal = new Animal();
+const dog = new Dog();
+animal.speak(); // Output: Animal makes a sound
+dog.speak(); // Output: Dog barks
+```
+
+- The `Dog` class overrides the `speak()` method from the `Animal` class.
+
+#### **4. Abstraction**
+- Abstraction is about exposing only the necessary details and hiding the implementation details.
+
+**Example using Classes:**
+```js
+class BankAccount {
+  #balance;
+  
+  constructor(owner, balance) {
+    this.owner = owner;
+    this.#balance = balance;
+  }
+
+  deposit(amount) {
+    this.#balance += amount;
+    console.log(`Deposited ${amount}. New balance: ${this.#balance}`);
+  }
+
+  getBalance() {
+    return this.#balance;
+  }
+}
+
+const account = new BankAccount('Abishek', 1000);
+account.deposit(500); // Output: Deposited 500. New balance: 1500
+console.log(account.getBalance()); // Output: 1500
+```
+
+- The `#balance` is hidden from direct access and can only be modified through the provided methods.
+
+---
+
+### **How to Implement OOP in Different Styles in JavaScript**
+
+Let's revisit the main styles for implementing OOP in JavaScript:
+
+1. **Using ES6 Classes (Modern Approach)**
+2. **Using `Object.create()` (Prototype-based Inheritance)**
+3. **Using Constructor Functions (Traditional Approach)**
+
+---
+
+### **OOP Comparison Table**
+
+| Concept         | ES6 Classes        | Constructor Functions           | `Object.create()`              |
+|-----------------|---------------------|--------------------------------|--------------------------------|
+| Syntax          | Cleaner, more readable | Older, traditional approach   | Explicitly sets the prototype  |
+| Inheritance     | `extends` keyword  | `call` and prototype chaining  | Prototype linking              |
+| Encapsulation   | `#privateFields`   | Closures for private variables | Limited without closures       |
+| Abstraction     | Methods and getters| Closures and methods           | Methods defined on prototype   |
+
+---
+
+Hope that clears up the concepts, bro! Let me know if you have any more questions or if anything needs more clarity.
+
+Alright, bro, let’s dive into this concept:
+
+In JavaScript, when you use the `extends` keyword to create a **child class** that inherits from a **parent class**, you typically call the `super()` method inside the child's constructor. The `super()` function is used to call the constructor of the parent class, which allows you to inherit its properties and methods.
+
+However, if your **child class does not have any additional properties of its own** and only inherits everything from the parent class, then you don't actually need to call `super()` in the constructor or even define a constructor at all.
+
+### **Why is `super()` Needed?**
+1. **When the Child Class has a Constructor**:
+   - If you define a `constructor` in a child class, you **must** call `super()` before you can use `this`.
+   - This is because the `super()` function sets up the `this` context for the child class. Without calling `super()`, you won't be able to access or assign properties using `this`.
+
+2. **If No New Properties are Needed**:
+   - If your child class doesn't need its own constructor (i.e., it only uses the parent class's properties and methods), you can **skip defining a constructor** entirely.
+   - In this case, the child class automatically uses the parent class’s constructor.
+
+---
+
+### **Example 1: Using `super()` with Additional Properties**
+
+If the child class has its own properties, you need to call `super()`:
+
+```js
+class Animal {
+  constructor(name) {
+    this.name = name;
+  }
+
+  speak() {
+    console.log(`${this.name} makes a sound`);
+  }
+}
+
+class Dog extends Animal {
+  constructor(name, breed) {
+    super(name); // Call the parent class constructor
+    this.breed = breed;
+  }
+
+  speak() {
+    console.log(`${this.name}, the ${this.breed}, barks`);
+  }
+}
+
+const myDog = new Dog('Bruno', 'Golden Retriever');
+myDog.speak(); // Output: Bruno, the Golden Retriever, barks
+```
+
+- Here, `super(name)` is necessary because we need to pass `name` to the `Animal` class.
+
+---
+
+### **Example 2: When You Don’t Need `super()` or a Constructor**
+
+If your child class doesn’t add any new properties, you can skip calling `super()` and even skip defining a `constructor`:
+
+```js
+class Animal {
+  constructor(name) {
+    this.name = name;
+  }
+
+  speak() {
+    console.log(`${this.name} makes a sound`);
+  }
+}
+
+class Dog extends Animal {
+  // No constructor needed since we're not adding any new properties
+}
+
+const myDog = new Dog('Max');
+myDog.speak(); // Output: Max makes a sound
+```
+
+- In this example, the `Dog` class automatically inherits the constructor from `Animal`.
+- Since there are no new properties in `Dog`, we didn’t need to define a constructor or call `super()`.
+
+---
+
+### **Key Takeaways**
+1. **If your child class defines its own constructor**, you **must** call `super()` before using `this`.
+2. **If your child class doesn’t need a constructor** (i.e., it doesn't have additional properties), you can **omit the constructor entirely**.
+3. In cases where the child class only extends the behavior of the parent class without introducing new properties, skipping the `constructor` and `super()` simplifies your code.
+
+Let me know if that clears things up, bro!
 
 
 */
