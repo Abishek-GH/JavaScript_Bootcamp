@@ -2023,7 +2023,13 @@ myDog.speak(); // Output: Max makes a sound
 
 Let me know if that clears things up, bro!
 
+@Common Format of an User Story
+As a [type of User], I want [an action] so that [a benefit]
 
+When we write a HTMl Code 
+  <script defer src="script.js"></script>
+  <script defer src="index.js"></script>
+Then index.js would have access to the global variables defined in the script.js file as long as it is rendered before the index.js file.
 */
 
 /*
