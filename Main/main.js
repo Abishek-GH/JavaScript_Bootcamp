@@ -2030,6 +2030,15 @@ When we write a HTMl Code
   <script defer src="script.js"></script>
   <script defer src="index.js"></script>
 Then index.js would have access to the global variables defined in the script.js file as long as it is rendered before the index.js file.
+
+
+@closet function in JS.
+Add Defintion and one small example
+
+
+Architecture -> Structure of Code
+First Step -> When, How adn Where to Store data as Data is the most important part of an application
+
 */
 
 /*
