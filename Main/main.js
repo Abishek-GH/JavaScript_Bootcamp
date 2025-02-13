@@ -2185,6 +2185,563 @@ counter(); // Output: Count is: 2
 
 ---
 
+### **Promise in JavaScript**
+- A **Promise** is an **object** that represents the **future result** of an asynchronous operation.
+- It's like a **container** for a value that will be available later, after the operation is completed.
+
+---
+
+### **Lifecycle of a Promise**
+1. **Pending State**:  
+   - The promise is in the initial stage where it is **waiting** for the asynchronous task to finish.  
+   - It's neither fulfilled nor rejected.
+
+2. **Async Task in Background**:  
+   - While the promise is pending, the asynchronous task is working in the background (like fetching data from a server).
+
+3. **Settled State**:  
+   - Once the asynchronous task finishes, the promise moves to the **settled state**.
+   - A promise can be settled in two ways:  
+     ✅ **Fulfilled**: The task completed successfully (e.g., data fetched successfully).  
+     ❌ **Rejected**: The task failed (e.g., error occurred).
+
+4. **State Cannot Change After Settling**:  
+   - A promise can only settle once, meaning once it’s fulfilled or rejected, it **cannot change its state** again.  
+   - **No going back** to pending once settled.
+
+---
+
+### **Consuming a Promise**
+- To **consume** a promise, we first **create** the promise and then use it.
+  
+- **Building a Promise**:  
+  - For example, in the **fetch** function, a promise is built internally when fetching data, and we consume it after the promise is returned.
+  
+  - **Example**:  
+    ```javascript
+    let fetchData = new Promise((resolve, reject) => {
+      let dataFetched = true; // Change this to false for a rejected state
+
+      if (dataFetched) {
+        resolve("Data fetched successfully!");
+      } else {
+        reject("Error fetching data!");
+      }
+    });
+
+    fetchData
+      .then((message) => console.log(message)) // Handling the fulfilled state
+      .catch((error) => console.log(error)); // Handling the rejected state
+    ```
+
+---
+
+### **Summary**
+- **Promise** is like a container for an **future value** that will be resolved later.
+- It goes through **pending** → **settled** (fulfilled or rejected) stages.
+- A promise’s state **can’t be changed once settled**.
+- To **consume** a promise, you must first **create** it, then **handle** its states (fulfilled or rejected).
+
+
+---
+
+### 1. `.then()`
+
+#### **Definition**:
+- `.then()` is used to handle the **successful resolution** of a **Promise**.
+- It is invoked once the promise has been **fulfilled** and returns the result from the promise (or it can return another promise).
+
+#### **Syntax**:
+```javascript
+promise.then(onSuccess, onFailure);
+```
+
+- `onSuccess`: A function that is executed when the promise is **fulfilled** (resolved).
+- `onFailure` (optional): A function that is executed when the promise is **rejected** (failure).
+
+#### **Use Case**:
+- You use `.then()` to process the result of a **successful** asynchronous operation.
+- It helps chain actions to be executed after an asynchronous task finishes.
+
+#### **Basic Example**:
+
+```javascript
+const promise = new Promise((resolve, reject) => {
+  let isSuccess = true;
+  
+  if (isSuccess) {
+    resolve("Operation succeeded!");
+  } else {
+    reject("Operation failed!");
+  }
+});
+
+promise
+  .then((result) => {
+    console.log(result); // "Operation succeeded!"
+  })
+  .catch((error) => {
+    console.log(error); // This won’t run in this case
+  });
+```
+
+---
+
+### 2. `.catch()`
+
+#### **Definition**:
+- `.catch()` is used to **handle errors** or **rejections** that occur in the promise chain.
+- It is invoked if the promise is **rejected**.
+
+#### **Syntax**:
+```javascript
+promise.catch(onError);
+```
+
+- `onError`: A function that is executed when the promise is **rejected** (failure).
+
+#### **Use Case**:
+- Use `.catch()` to **handle failures** or **exceptions** in promises.
+- It provides an easy way to manage errors that occur during asynchronous operations.
+
+#### **Basic Example**:
+
+```javascript
+const promise = new Promise((resolve, reject) => {
+  let isSuccess = false;
+  
+  if (isSuccess) {
+    resolve("Operation succeeded!");
+  } else {
+    reject("Operation failed!");
+  }
+});
+
+promise
+  .then((result) => {
+    console.log(result); // This won’t run in this case
+  })
+  .catch((error) => {
+    console.log(error); // "Operation failed!"
+  });
+```
+
+---
+
+### 3. `.finally()`
+
+#### **Definition**:
+- `.finally()` is used to execute code **after** the promise has settled, regardless of whether it was **resolved** or **rejected**.
+- It is helpful for **cleanup** tasks, like hiding a loading spinner, closing a database connection, or releasing resources.
+
+#### **Syntax**:
+```javascript
+promise.finally(onFinally);
+```
+
+- `onFinally`: A function that is executed when the promise **settles** (either resolved or rejected). It doesn’t receive the promise result or error.
+
+#### **Use Case**:
+- Use `.finally()` for **final operations** that need to happen regardless of the outcome of the promise.
+- It's ideal for tasks that must be executed no matter what (e.g., UI updates, logging).
+
+#### **Basic Example**:
+
+```javascript
+const promise = new Promise((resolve, reject) => {
+  let isSuccess = true;
+  
+  if (isSuccess) {
+    resolve("Operation succeeded!");
+  } else {
+    reject("Operation failed!");
+  }
+});
+
+promise
+  .then((result) => {
+    console.log(result); // "Operation succeeded!"
+  })
+  .catch((error) => {
+    console.log(error); // This won’t run in this case
+  })
+  .finally(() => {
+    console.log("This runs no matter what (cleanup code)");
+  });
+```
+
+In this example, no matter whether the promise resolves or rejects, the **"This runs no matter what"** message will always be logged.
+
+---
+
+### **Key Differences**:
+
+- **`.then()`**: Used for handling **success** of the promise and chaining further operations.
+- **`.catch()`**: Used for handling **errors** and **failures** in the promise.
+- **`.finally()`**: Executes code once the promise **settles**, regardless of success or failure, typically used for cleanup.
+
+---
+
+### **Real-World Example**:
+
+Imagine you’re fetching data from an API:
+
+```javascript
+fetch("https://api.example.com/data")
+  .then((response) => response.json())  // Handle the successful data response
+  .then((data) => {
+    console.log("Data received:", data);  // Process the data
+  })
+  .catch((error) => {
+    console.log("Error occurred:", error);  // Handle errors (like no internet, 404, etc.)
+  })
+  .finally(() => {
+    console.log("API request finished, clean-up if needed");  // Final clean-up action, like hiding a loading spinner
+  });
+```
+
+In this example:
+- `.then()` handles the successful response from the API.
+- `.catch()` handles any errors if the fetch operation fails (e.g., network issues).
+- `.finally()` performs any cleanup (e.g., hiding the loading spinner) once the API request is complete, regardless of whether it was successful or not.
+
+# **JavaScript Runtime in Browser – A Deep Dive**
+
+JavaScript is a **single-threaded, non-blocking, asynchronous** programming language. This means it executes one operation at a time but can efficiently handle multiple tasks in the background without blocking execution.  
+
+This is made possible by the **JavaScript Runtime Environment**, which consists of several key components:
+
+### **1. JavaScript Runtime in Browser**  
+The **JavaScript runtime** in a browser is like a **container** that holds everything needed to execute JavaScript code. It includes:  
+- **JavaScript Engine** – The core processor of JavaScript.  
+- **Heap** – Memory storage for objects.  
+- **Call Stack** – Where JavaScript code is executed.  
+- **Web APIs** – Browser-provided APIs like `setTimeout()`, `fetch()`, and DOM manipulation.  
+- **Callback Queue** – Stores functions waiting to be executed after an event occurs.  
+- **Event Loop** – Monitors the **call stack** and **callback queue** to maintain concurrency.  
+- **Microtask Queue** – Holds higher-priority tasks, mainly for `Promises`.  
+
+---
+
+## **2. JavaScript Engine – The Heart of the Runtime**
+The **JavaScript Engine** is responsible for executing JavaScript code. Every browser has its own engine:  
+- **V8 (Chrome, Node.js)**  
+- **SpiderMonkey (Firefox)**  
+- **JavaScriptCore (Safari)**  
+
+The engine converts JavaScript code into machine code for execution.  
+
+---
+
+## **3. Heap – Memory Storage**
+The **Heap** is an area in memory where objects and variables are stored. Unlike the **Call Stack**, which follows a structured order, the heap is unstructured and dynamically allocated.  
+
+Example:  
+```js
+let user = { name: "Abishek" }; 
+// 'user' is stored in the heap
+```
+
+---
+
+## **4. Call Stack – Where Code is Executed**
+The **Call Stack** is a **LIFO (Last In, First Out)** data structure where JavaScript executes code synchronously. It pushes function calls onto the stack and removes them after execution.  
+
+Example:  
+```js
+function greet() {
+    console.log("Hello, Bro!");
+}
+
+greet();
+```
+Execution steps:  
+1. `greet()` is **pushed** to the Call Stack.  
+2. `console.log("Hello, Bro!")` is executed.  
+3. `greet()` is **popped** off the Call Stack.  
+
+---
+
+## **5. Web APIs – Browser-Provided Features**
+JavaScript alone **cannot** handle asynchronous operations like **network requests, timers, and DOM manipulation**. This is where **Web APIs** come into play.  
+
+Examples of Web APIs:  
+- `setTimeout()` for timers  
+- `fetch()` for network requests  
+- DOM manipulation like `document.getElementById()`  
+- Event Listeners like `click` and `keydown`  
+
+These APIs **do not** execute inside the JavaScript engine but are handled by the browser.
+
+Example:
+```js
+console.log("Start");
+
+setTimeout(() => {
+    console.log("Inside setTimeout");
+}, 2000);
+
+console.log("End");
+```
+### **Execution Flow**
+1. `console.log("Start")` → Goes to **Call Stack**, executed immediately.  
+2. `setTimeout()` is sent to the **Web API**, handled **outside** the Call Stack.  
+3. `console.log("End")` → Executed immediately.  
+4. After 2 seconds, the **callback** of `setTimeout()` moves to the **Callback Queue**.  
+5. **Event Loop** moves it to the **Call Stack** when it’s empty.  
+
+**Output:**
+```
+Start
+End
+Inside setTimeout
+```
+This shows **non-blocking concurrency** in action.
+
+---
+
+## **6. Callback Queue – Handling Events**
+The **Callback Queue** stores callbacks from:  
+- `setTimeout()`  
+- DOM events (`click`, `scroll`, etc.)  
+- `setInterval()`  
+
+They are added to the **Callback Queue** and executed only when the **Call Stack is empty**.
+
+Example:  
+```js
+console.log("Start");
+
+document.getElementById("btn").addEventListener("click", () => {
+    console.log("Button clicked");
+});
+
+console.log("End");
+```
+**Execution Flow:**  
+1. `console.log("Start")` executes.  
+2. Event Listener is registered but not executed yet.  
+3. `console.log("End")` executes.  
+4. When the button is clicked, the event goes to the **Callback Queue**.  
+5. The **Event Loop** pushes it to the **Call Stack** when empty.  
+
+---
+
+## **7. Event Loop – The Heart of Concurrency**
+The **Event Loop** continuously checks:  
+1. **Is the Call Stack empty?**  
+2. **Are there pending tasks in the Callback Queue?**  
+
+If **yes**, it moves the first task from the **Callback Queue** to the **Call Stack**.
+
+This is why JavaScript is **non-blocking and asynchronous**.
+
+---
+
+## **8. Microtask Queue – Higher Priority Queue**
+The **Microtask Queue** stores:  
+- `Promise.then()` callbacks  
+- `MutationObserver()`  
+
+**It has a higher priority than the Callback Queue.**  
+
+Example:  
+```js
+console.log("Start");
+
+setTimeout(() => {
+    console.log("Inside setTimeout");
+}, 0);
+
+Promise.resolve().then(() => {
+    console.log("Inside Promise");
+});
+
+console.log("End");
+```
+### **Execution Flow**
+1. `console.log("Start")` executes.  
+2. `setTimeout()` goes to the **Web API**, scheduled with **0ms delay**.  
+3. `Promise.then()` goes to the **Microtask Queue**.  
+4. `console.log("End")` executes.  
+5. **Microtask Queue** executes first → `"Inside Promise"`.  
+6. **Callback Queue** executes → `"Inside setTimeout"`.  
+
+**Output:**
+```
+Start
+End
+Inside Promise
+Inside setTimeout
+```
+Even though `setTimeout()` had `0ms` delay, the **Promise executed first** because the **Microtask Queue has higher priority**.
+
+---
+
+## **Full Lifecycle Example**
+```js
+console.log("Start");
+
+setTimeout(() => {
+    console.log("Inside setTimeout");
+}, 0);
+
+Promise.resolve().then(() => {
+    console.log("Inside Promise");
+});
+
+console.log("End");
+
+function syncTask() {
+    console.log("Sync Task Executed");
+}
+syncTask();
+```
+### **Execution Flow**
+1. `console.log("Start")` → **Call Stack**, executes.  
+2. `setTimeout()` → Sent to **Web API**.  
+3. `Promise.then()` → Goes to **Microtask Queue**.  
+4. `console.log("End")` → Executes.  
+5. `syncTask()` → Executes immediately.  
+6. **Microtask Queue executes** → `"Inside Promise"`.  
+7. **Callback Queue executes** → `"Inside setTimeout"`.  
+
+**Final Output:**
+```
+Start
+End
+Sync Task Executed
+Inside Promise
+Inside setTimeout
+```
+
+---
+
+## **Summary**
+| Component | Function |
+|-----------|----------|
+| **Call Stack** | Executes JavaScript synchronously. |
+| **Heap** | Stores objects and memory allocations. |
+| **Web APIs** | Handles async tasks (setTimeout, fetch, DOM events). |
+| **Callback Queue** | Holds event-driven functions to be executed later. |
+| **Microtask Queue** | Holds high-priority tasks (Promises). |
+| **Event Loop** | Moves tasks from Queues to Call Stack when empty. |
+
+### **Key Takeaways**
+- JavaScript executes synchronously but can handle async tasks with Web APIs.  
+- The **Event Loop** ensures smooth execution of pending tasks.  
+- **Microtask Queue has higher priority than Callback Queue**, so Promises execute first.  
+
+This is why **JavaScript is non-blocking, yet handles concurrency efficiently**. 🚀
+
+
+---
+
+### **1. `async/await`**
+- **`async`**: Marks a function as asynchronous. It always returns a **Promise**.
+- **`await`**: Pauses execution until the Promise resolves (only works inside `async` functions). It unwraps the value of a resolved Promise.
+- **Usage**: Simplifies working with Promises by writing asynchronous code as if it were synchronous, avoiding `.then()` and `.catch()` chaining.
+
+**Example**:
+```javascript
+async function fetchData() {
+  try {
+    const res = await fetch('https://api.example.com/data');
+    const data = await res.json();
+    console.log(data);
+  } catch (err) {
+    console.error(err);
+  }
+}
+```
+
+---
+
+### **2. `Promise.all()`**
+- **Purpose**: Runs multiple promises **concurrently** and waits for all to resolve. If any promise fails (is rejected), the whole `Promise.all()` fails and goes to `.catch()`.
+- **Returns**: A single Promise that resolves to an array of resolved values of the input promises.
+
+**Example**:
+```javascript
+const promise1 = fetch('/api/users');
+const promise2 = fetch('/api/posts');
+Promise.all([promise1, promise2])
+  .then(([users, posts]) => {
+    console.log(users, posts);
+  })
+  .catch(err => console.error(err));
+```
+
+---
+
+### **3. `Promise.race()`**
+- **Purpose**: Waits for the **first** promise to resolve or reject. It returns the result of the first Promise that settles (whether resolved or rejected).
+- **Returns**: A single Promise that resolves or rejects based on the outcome of the first settled promise.
+
+**Example**:
+```javascript
+const promise1 = new Promise(resolve => setTimeout(resolve, 200, 'First'));
+const promise2 = new Promise(resolve => setTimeout(resolve, 100, 'Second'));
+
+Promise.race([promise1, promise2])
+  .then(result => console.log(result))  // Output: 'Second'
+  .catch(err => console.error(err));
+```
+
+---
+
+### **4. `Promise.allSettled()`**
+- **Purpose**: Waits for **all** promises to settle, regardless of whether they resolve or reject. It returns an array with the result of all promises.
+- **Returns**: An array of objects that each represent the outcome (either `fulfilled` or `rejected`) of each promise.
+
+**Example**:
+```javascript
+const promise1 = Promise.resolve(3);
+const promise2 = Promise.reject('Error');
+const promise3 = Promise.resolve(42);
+
+Promise.allSettled([promise1, promise2, promise3])
+  .then(results => console.log(results));
+  // Output: [
+  //   { status: 'fulfilled', value: 3 },
+  //   { status: 'rejected', reason: 'Error' },
+  //   { status: 'fulfilled', value: 42 }
+  // ]
+```
+
+---
+
+### **5. `Promise.any()`**
+- **Purpose**: Waits for the **first promise that resolves**. It ignores rejected promises. If all promises are rejected, it returns an aggregate error.
+- **Returns**: The first resolved value or an aggregate error if all promises are rejected.
+
+**Example**:
+```javascript
+const promise1 = Promise.reject('First');
+const promise2 = Promise.resolve('Second');
+const promise3 = Promise.resolve('Third');
+
+Promise.any([promise1, promise2, promise3])
+  .then(result => console.log(result))  // Output: 'Second'
+  .catch(err => console.error(err));
+```
+
+---
+
+### **6. `try/catch`**
+- **Purpose**: Handles synchronous and asynchronous errors. `try` block contains code that may throw an error, and the `catch` block handles the error.
+- **Works with `async/await`**: `try/catch` can catch errors from async functions that throw or return a rejected promise.
+
+**Example**:
+```javascript
+try {
+  const result = await fetchData();
+  console.log(result);
+} catch (error) {
+  console.error('Error occurred:', error);
+}
+```
+
 
 */
 
